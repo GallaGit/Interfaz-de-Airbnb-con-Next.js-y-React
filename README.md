@@ -19,6 +19,10 @@ Recrear una arquitectura modular de interfaz inspirada en Airbnb para practicar:
 - Diseño responsivo mobile-first.
 - Navegación entre rutas dinámicas con App Router.
 
+## Usuario Objetivo
+
+El usuario principal es una persona viajera que busca alojamiento de forma rápida y confiable; en la plataforma intenta descubrir opciones disponibles, comparar propiedades por ubicación, precio y comodidades, revisar el detalle de cada espacio y decidir si reservar su próxima estadía.
+
 ## Vistas Implementadas
 
 ### 1. Home (`/`)
