@@ -1,6 +1,6 @@
 # Arquitectura de la Interfaz - Clon de Airbnb
 
-
+> Identidad visual y tokens de diseño: [`design.md`](./design.md)
 
 ## Objetivo del Proyecto
 
@@ -52,11 +52,15 @@ Contenido principal:
 
 
 
-* Barra de búsqueda integrada en el header.
+* Barra de búsqueda integrada en el header (`HomeNavbar`).
 
-* Navegación por categorías (filtros horizontales).
+* Navegación por categorías con pills horizontales (`CategoryFilterRow`).
 
-* Listado de alojamientos con tarjetas `StayCard`.
+* Listado de alojamientos con tarjetas `StayCard` (placeholder de foto, título, precio, rating).
+
+* Filtrado en tiempo real por texto (`useState`) y categoría activa (`useState`).
+
+* Carga simulada al montar (`useEffect` + 1 s) con `ListingsLoading`.
 
 * Clic en tarjeta navega al detalle vía `<Link>`.
 
@@ -105,29 +109,27 @@ Contenido principal:
 
 
 
-* Contador de resultados y selector de orden por precio.
+* Botón «Ir a Home» (`CatalogBackLink`).
 
-* Grid de tarjetas `StayCard`.
+* Contador de resultados y selector de orden por precio (`CatalogResultsHeader`, `useState`).
 
-* Panel lateral de mapa (placeholder).
+* Grid de tarjetas `StayCard` reutilizado desde Home.
+
+* Panel lateral de mapa (`MapPlaceholder`) — derecha en escritorio, debajo en móvil.
 
 * Clic en tarjeta navega al detalle vía `<Link>`.
 
 
 
-Cada tarjeta de propiedad muestra:
+Cada tarjeta `StayCard` muestra:
 
-
-
-* Imagen principal (o placeholder).
-
-* Ubicación.
+* Placeholder de foto (gradiente gris).
 
 * Título.
 
-* Valoración.
+* Precio por noche (color primario).
 
-* Precio por noche.
+* Valoración con estrella.
 
 
 
@@ -153,7 +155,9 @@ Contenido principal:
 
 * Lista de servicios y comodidades (`RoomAmenitiesSection`).
 
-* Panel de reserva con selector de huéspedes (`RoomBookingPanel`).
+* Panel de reserva con selector de huéspedes (`RoomBookingPanel`, `useState`).
+
+* Carga simulada al montar (`useEffect` + 1 s) con `RoomDetailLoading`.
 
 
 
@@ -179,6 +183,34 @@ Reglas de implementación:
 
 
 
+### Componentes de Home
+
+* `HomeNavbar` — Logo, búsqueda controlada y avatar.
+
+* `CategoryFilterRow` — Pills de categoría con scroll horizontal.
+
+* `ListingsSection` — Grid, estado vacío o `ListingsLoading`.
+
+* `ListingsLoading` — Spinner de carga.
+
+### Componentes de catálogo
+
+* `CatalogBackLink` — Enlace `<Link>` a `/`.
+
+* `CatalogResultsHeader` — Contador y `<select>` de orden.
+
+* `CatalogListingsMap` — Grid de `StayCard` + `MapPlaceholder`.
+
+* `MapPlaceholder` — Recuadro gris con texto «Mapa».
+
+### Componentes de layout
+
+* `MobileBottomNav` — Navegación inferior fija (móvil).
+
+* `NavIcon` — Iconos SVG de la bottom bar.
+
+* `Navbar` / `Footer` — Layout auxiliar (desktop).
+
 ### Componentes de listado
 
 
@@ -193,7 +225,9 @@ Reglas de implementación:
 
 ### Componentes de detalle
 
+* `RoomDetailView` — Composición de las 5 secciones del detalle.
 
+* `RoomDetailLoading` / `RoomNotFound` — Estados de carga y error.
 
 * `RoomBreadcrumb` — Navegación de vuelta al catálogo con breadcrumb.
 
@@ -221,6 +255,26 @@ Reglas de implementación:
 
 * `Button` — Botón reutilizable.
 
+### Hooks y utilidades
+
+* `useHomeListings` — Estado y carga simulada de la Home (`hooks/`).
+
+* `useRoomDetail` — Carga simulada del detalle por `id` de URL (`hooks/`).
+
+* `filterListings` — Filtrado por texto y categoría (`lib/`).
+
+* `getAmenityIcon` — Mapeo icono + etiqueta de amenities (`lib/`).
+
+### Tipos TypeScript
+
+Definidos en `src/types/listing.ts`:
+
+* `Listing` — Alojamiento en listados.
+
+* `Room` — Alias de `Listing` para el detalle.
+
+* `Host` — Anfitrión (`name`, `superhost`).
+
 
 
 ## Navegación
@@ -245,6 +299,8 @@ Home (/) ──click tarjeta──► /rooms/[id]
 
 Catálogo (/catalog) ──click tarjeta──► /rooms/[id]
 
+Catálogo (/catalog) ──«Ir a Home»──► /
+
 Búsqueda (/search) ──click tarjeta──► /rooms/[id]
 
 Detalle (/rooms/[id]) ──breadcrumb──► /catalog
@@ -261,17 +317,21 @@ Detalle (/rooms/[id]) ──breadcrumb──► /catalog
 
 RoomDetailPage
 
-├── RoomBreadcrumb          → Link a /catalog
+├── RoomDetailLoading | RoomNotFound
 
-├── RoomPhotoCarousel
+└── RoomDetailView
 
-├── RoomSummary
+    ├── RoomBreadcrumb          → Link a /catalog
 
-├── RoomHostCard
+    ├── RoomPhotoCarousel       → useState (índice foto)
 
-├── RoomAmenitiesSection
+    ├── RoomSummary
 
-└── RoomBookingPanel
+    ├── RoomHostCard
+
+    ├── RoomAmenitiesSection
+
+    └── RoomBookingPanel        → useState (huéspedes)
 
 ```
 
@@ -297,13 +357,44 @@ HomePage
 
 ```
 
+### Árbol de componentes — Catálogo
+
+```text
+
+CatalogPage
+
+├── CatalogBackLink             → Link a /
+
+├── CatalogResultsHeader        → useState (orden)
+
+└── CatalogListingsMap
+
+    ├── StayCard[]              → Link a /rooms/[id]
+
+    └── MapPlaceholder
+
+```
+
+### Mapeo especificación → implementación
+
+| Especificación (captura) | Componente implementado |
+|---|---|
+| TopSearchBar | `HomeNavbar` |
+| CategoryTabs | `CategoryFilterRow` |
+| BottomTabBar | `MobileBottomNav` |
+| TabItem | `NavIcon` + enlaces en `MobileBottomNav` |
+| StayCard | `StayCard` |
+| ListingCard | `ListingCard` (solo `/search`) |
+
 
 
 ## Consideraciones de Diseño
 
+* Diseño mobile-first (375px). Ver [`design.md`](./design.md).
 
+* Fuente Plus Jakarta Sans; color primario `#FF5A5F`.
 
-* Diseño mobile-first.
+* Solo Tailwind CSS — sin librerías de componentes preconstruidas.
 
 * Componentes reutilizables y desacoplados.
 

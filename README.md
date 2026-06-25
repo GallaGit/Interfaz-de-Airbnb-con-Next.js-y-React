@@ -1,142 +1,139 @@
 # Interfaz de Airbnb con Next.js y React
 
-Clon parcial de Airbnb construido con Next.js App Router, React y TypeScript.
+Clon parcial de Airbnb construido con **Next.js 16**, **React 19**, **TypeScript** y **Tailwind CSS v4**. El código de la aplicación está en `agenthub-admin/`.
 
-El proyecto implementa tres flujos principales:
+## Documentación
 
-- Home
-- Catálogo de búsqueda
-- Detalle de habitación
+| Archivo | Contenido |
+|---|---|
+| [`context.md`](./context.md) | Arquitectura, componentes, navegación, usuario y checklist de evaluación |
+| [`design.md`](./design.md) | Identidad visual: colores, tipografía, radios, sombras y patrones UI |
 
-Toda la navegación interna se realiza sin recarga de página usando App Router de Next.js y el componente `<Link>`. No se usan etiquetas `<a href>` planas para rutas internas.
+## Rutas principales
+
+| Ruta | Descripción |
+|---|---|
+| `/` | Home — búsqueda en tiempo real, filtros por categoría, grid de `StayCard` |
+| `/catalog` | Catálogo — orden por precio, `StayCard` reutilizado, mapa placeholder |
+| `/rooms/[id]` | Detalle — galería, cabecera, anfitrión, amenities y reserva |
+
+Ruta adicional: `/search` (búsqueda con query params y `ListingCard`).
+
+Toda la navegación interna usa `<Link>` de `next/link` — sin `<a href>` planos ni recargas completas.
 
 ## Objetivo
 
-Recrear una arquitectura modular de interfaz inspirada en Airbnb para practicar:
+Recrear una arquitectura modular inspirada en Airbnb para practicar:
 
-- Composición de componentes reutilizables.
-- Flujo de datos con datos mock.
-- Diseño responsivo mobile-first.
-- Navegación entre rutas dinámicas con App Router.
+- Composición de componentes reutilizables con responsabilidad única.
+- Estado local con `useState` y carga simulada con `useEffect`.
+- Diseño **mobile-first** (375px).
+- Navegación con App Router y rutas dinámicas.
 
-## Usuario Objetivo
+## Usuario objetivo
 
-El usuario principal es una persona viajera que busca alojamiento de forma rápida y confiable; en la plataforma intenta descubrir opciones disponibles, comparar propiedades por ubicación, precio y comodidades, revisar el detalle de cada espacio y decidir si reservar su próxima estadía.
+Persona viajera que busca alojamiento: descubrir opciones, filtrar por categoría o texto, comparar precios y revisar el detalle antes de reservar.
 
-## Vistas Implementadas
+## Vistas implementadas
 
-### 1. Home (`/`)
+### Home (`/`)
 
-- Barra de búsqueda integrada en el header.
-- Filtros por categoría (scroll horizontal).
-- Grid de alojamientos con `StayCard`.
-- Clic en cualquier tarjeta navega al detalle (`/rooms/[id]`).
+- `HomeNavbar` — logo, búsqueda (`useState`) y avatar.
+- `CategoryFilterRow` — pills horizontales con categoría activa (`useState`).
+- `ListingsSection` — grid responsivo de `StayCard`.
+- Carga simulada 1 s con `ListingsLoading` (`useEffect` en `useHomeListings`).
 
-### 2. Catálogo de búsqueda (`/search`)
+### Catálogo (`/catalog`)
 
-- Barra de búsqueda con query params.
-- Filtros por categoría con `<Link>`.
-- Grid de propiedades con `ListingCard`.
-- Clic en cualquier tarjeta navega al detalle (`/rooms/[id]`).
+- `CatalogBackLink` — botón «Ir a Home».
+- `CatalogResultsHeader` — contador y orden ascendente/descendente (`useState`).
+- `CatalogListingsMap` — grid de `StayCard` + `MapPlaceholder`.
 
-### 3. Catálogo con mapa (`/catalog`)
+### Búsqueda (`/search`)
 
-- Listado de propiedades con ordenamiento por precio.
-- Grid de `StayCard` con panel lateral de mapa (placeholder).
-- Clic en cualquier tarjeta navega al detalle (`/rooms/[id]`).
+- `SearchInput` + `SearchFilters` con `<Link>`.
+- `ListingGrid` con `ListingCard`.
 
-### 4. Detalle de Habitación (`/rooms/[id]`)
+### Detalle (`/rooms/[id]`)
 
-- Breadcrumb con enlace de vuelta al catálogo (`/catalog`).
-- Carrusel de fotos (`RoomPhotoCarousel`).
-- Resumen de la propiedad (`RoomSummary`).
-- Información del anfitrión (`RoomHostCard`).
-- Lista de servicios (`RoomAmenitiesSection`).
-- Panel de reserva con selector de huéspedes (`RoomBookingPanel`).
+- `RoomBreadcrumb` — vuelta al catálogo vía `<Link>`.
+- `RoomPhotoCarousel` — placeholders con índice (`useState`).
+- `RoomSummary`, `RoomHostCard`, `RoomAmenitiesSection`, `RoomBookingPanel`.
+- Carga simulada con `useRoomDetail` (`useEffect`).
 
 ## Navegación
 
 | Origen | Acción | Destino |
 |---|---|---|
-| Home (`/`) | Clic en tarjeta | `/rooms/[id]` |
-| Catálogo (`/catalog`) | Clic en tarjeta | `/rooms/[id]` |
-| Búsqueda (`/search`) | Clic en tarjeta | `/rooms/[id]` |
-| Detalle (`/rooms/[id]`) | Breadcrumb "Volver al catálogo" | `/catalog` |
+| Home / Catálogo / Búsqueda | Clic en tarjeta | `/rooms/[id]` |
+| Detalle | Breadcrumb «Volver al catálogo» | `/catalog` |
+| Catálogo | Botón «Ir a Home» | `/` |
+| Bottom nav (móvil) | Tabs Explorar / Buscar / Catálogo | `/`, `/search`, `/catalog` |
 
-Todas las rutas internas usan `<Link>` de `next/link`.
-
-## Arquitectura del Proyecto
+## Arquitectura del proyecto
 
 ```text
 agenthub-admin/src/
-│
 ├── app/
-│   ├── page.tsx                  # Home
-│   ├── search/
-│   │   └── page.tsx              # Resultados de búsqueda
-│   ├── catalog/
-│   │   └── page.tsx              # Catálogo con ordenamiento
-│   └── rooms/
-│       └── [id]/
-│           └── page.tsx          # Detalle dinámico
+│   ├── layout.tsx              # Plus Jakarta Sans, MobileBottomNav, viewport
+│   ├── globals.css             # Tokens de diseño (brand, sombras, fondos)
+│   ├── page.tsx                # Home
+│   ├── catalog/page.tsx
+│   ├── search/page.tsx
+│   └── rooms/[id]/page.tsx
 │
 ├── components/
-│   ├── layout/
-│   │   ├── Navbar.tsx
-│   │   └── Footer.tsx
-│   ├── ui/
-│   │   ├── Button.tsx
-│   │   ├── Badge.tsx
-│   │   ├── SearchInput.tsx
-│   │   └── SectionTitle.tsx
-│   ├── listing/
-│   │   ├── ListingCard.tsx       # Tarjeta clicable (búsqueda)
-│   │   ├── StayCard.tsx          # Tarjeta clicable (home/catálogo)
-│   │   ├── ListingGrid.tsx
-│   │   └── ListingInfo.tsx
-│   ├── room/
-│   │   ├── RoomBreadcrumb.tsx    # Navegación de vuelta al catálogo
-│   │   ├── RoomPhotoCarousel.tsx # Galería con anterior/siguiente
-│   │   ├── RoomSummary.tsx       # Título, rating y ubicación
-│   │   ├── RoomHostCard.tsx      # Info del anfitrión
-│   │   ├── RoomAmenitiesSection.tsx
-│   │   ├── RoomBookingPanel.tsx  # Precio, huéspedes y reserva
-│   │   ├── RoomGallery.tsx
-│   │   ├── RoomHeader.tsx
-│   │   ├── RoomAmenities.tsx
-│   │   └── BookingCard.tsx
-│   └── home/
-│       ├── HeroSection.tsx
-│       ├── CategoryList.tsx
-│       └── FeaturedListings.tsx
+│   ├── catalog/                # CatalogBackLink, CatalogResultsHeader, CatalogListingsMap, MapPlaceholder
+│   ├── home/                   # HomeNavbar, CategoryFilterRow, ListingsSection, ListingsLoading
+│   ├── layout/                 # MobileBottomNav, NavIcon, Navbar, Footer
+│   ├── listing/                # StayCard, ListingCard, ListingGrid
+│   ├── room/                   # RoomDetailView, RoomBreadcrumb, RoomPhotoCarousel, …
+│   ├── search/                 # SearchFilters
+│   └── ui/                     # Button, Badge, SearchInput, SectionTitle
+│
+├── hooks/
+│   ├── useHomeListings.ts      # useState + useEffect (Home)
+│   └── useRoomDetail.ts        # useEffect (Detalle)
+│
+├── lib/
+│   ├── filterListings.ts
+│   └── amenityIcons.ts
 │
 ├── data/
-│   └── listings.ts
+│   ├── listings.ts
+│   └── categoryFilters.ts
+│
 └── types/
-    └── listing.ts
+    └── listing.ts              # Listing, Room, Host
 ```
 
-## Convenciones de Código
+## Estado de React
 
-- Cada componente vive en su propio archivo dentro de `/components`.
-- Componentes funcionales definidos como `const` (sin componentes de clase).
-- Ningún componente supera ~80 líneas de JSX + lógica; las vistas complejas se dividen en subcomponentes.
-- Navegación interna exclusivamente con `<Link>` de Next.js.
+| Caso | `useState` / `useEffect` | Archivo |
+|---|---|---|
+| Texto de búsqueda | `useState` | `hooks/useHomeListings.ts` |
+| Categoría activa | `useState` | `hooks/useHomeListings.ts` |
+| Orden por precio | `useState` | `app/catalog/page.tsx` |
+| Contador de huéspedes | `useState` | `components/room/RoomBookingPanel.tsx` |
+| Índice de galería | `useState` | `components/room/RoomPhotoCarousel.tsx` |
+| Carga Home | `useEffect` + 1 s | `hooks/useHomeListings.ts` |
+| Carga Detalle | `useEffect` + 1 s | `hooks/useRoomDetail.ts` |
+
+## Convenciones de código
+
+- Cada componente en su propio archivo bajo `/components`.
+- Componentes funcionales definidos como `const` (sin clases).
+- Máximo ~80 líneas por componente; lógica extraída a hooks y `lib/`.
+- Solo estilos Tailwind — sin `style={{}}` ni librerías UI externas.
 
 ## Stack
 
 - Next.js 16 (App Router)
 - React 19
-- TypeScript
+- TypeScript 5
 - Tailwind CSS 4
 
-## Datos
-
-Se utilizan datos simulados en `agenthub-admin/src/data/listings.ts` para propiedades, categorías, amenities, host y precios.
-
-## Cómo Ejecutar
-
-Desde la raíz del repositorio:
+## Cómo ejecutar
 
 ```bash
 cd agenthub-admin
@@ -144,27 +141,23 @@ npm install
 npm run dev
 ```
 
-Abrir en navegador:
+Abrir [http://localhost:3000](http://localhost:3000).
 
-- `http://localhost:3000`
-
-> Si `npm install` falla por certificados SSL en tu red, prueba: `npm install --strict-ssl=false`
+> Si `npm install` falla por SSL: `npm install --strict-ssl=false`
 
 ## Scripts
 
-En `agenthub-admin`:
+- `npm run dev` — desarrollo
+- `npm run build` — build de producción
+- `npm run start` — servidor de producción
+- `npm run lint` — ESLint
 
-- `npm run dev` inicia el entorno de desarrollo.
-- `npm run build` genera la build de producción.
-- `npm run start` inicia la app en modo producción.
-- `npm run lint` ejecuta validación con ESLint.
+## Estado actual
 
-## Estado Actual
-
-- Arquitectura modular implementada con componentes pequeños y reutilizables.
-- Navegación entre las cuatro vistas funcionando con App Router y `<Link>`.
-- Tarjetas de alojamiento (`ListingCard`, `StayCard`) completamente clicables.
-- Ruta dinámica de detalle (`/rooms/[id]`) conectada a datos mock.
-- Página de detalle refactorizada en subcomponentes (`RoomBreadcrumb`, `RoomPhotoCarousel`, `RoomSummary`, etc.).
-- Breadcrumb de vuelta al catálogo en la vista de detalle.
-- TypeScript configurado (`next-env.d.ts` + `@types/react`).
+- Identidad visual premium inspirada en Airbnb (`design.md`).
+- Tres rutas evaluables navegables con `<Link>`.
+- `StayCard` reutilizado en Home y Catálogo.
+- Detalle con 5 secciones y breadcrumb al catálogo.
+- Barra inferior móvil (`MobileBottomNav`) sin menú hamburguesa.
+- Tipos `Listing`, `Room` y `Host` en TypeScript.
+- Documentación alineada en `context.md`, `design.md` y este README.
