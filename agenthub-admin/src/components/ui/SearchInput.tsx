@@ -33,20 +33,26 @@ export default function SearchInput({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex w-full items-center gap-2 rounded-full border border-stone-300 bg-white p-2 shadow-sm"
+      className="flex w-full items-center gap-2 rounded-xl border border-border-subtle bg-white p-1.5 shadow-[var(--shadow-card)] transition focus-within:border-brand/40 focus-within:shadow-[var(--shadow-card-hover)]"
     >
+      <span className="pl-3 text-muted" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.75" />
+          <path d="M20 20l-3.5-3.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+        </svg>
+      </span>
       <input
         type="text"
         name="q"
         defaultValue={defaultValue}
-        placeholder="Search destinations or stays"
-        className="w-full rounded-full px-4 py-2 text-sm outline-none"
+        placeholder="Busca destinos o alojamientos"
+        className="w-full rounded-xl bg-transparent px-2 py-2.5 text-sm text-foreground outline-none placeholder:text-muted"
       />
       <button
         type="submit"
-        className="rounded-full bg-brand px-5 py-2 text-sm font-semibold text-white transition hover:bg-red-600"
+        className="shrink-0 rounded-xl bg-brand px-5 py-2.5 text-sm font-semibold text-white transition duration-200 hover:bg-brand-hover active:scale-[0.98]"
       >
-        Search
+        Buscar
       </button>
     </form>
   );

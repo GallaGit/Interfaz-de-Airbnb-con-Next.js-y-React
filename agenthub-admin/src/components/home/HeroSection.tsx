@@ -2,14 +2,14 @@ import SearchInput from "@/components/ui/SearchInput";
 
 export default function HeroSection() {
   return (
-    <section className="space-y-6 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-stone-200 sm:p-8">
+    <section className="space-y-6 rounded-2xl bg-background-secondary p-6 shadow-[var(--shadow-card)] sm:p-8">
       <div className="space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-wider text-brand">Airbnb clone</p>
-        <h1 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">
-          Find your next stay
+        <p className="text-xs font-bold tracking-wider text-brand uppercase">Airbnb clone</p>
+        <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+          Encuentra tu próxima estancia
         </h1>
-        <p className="max-w-2xl text-sm text-stone-600 sm:text-base">
-          Discover unique homes, cabins, and beachfront escapes with a mobile-first experience.
+        <p className="max-w-2xl text-sm text-muted sm:text-base">
+          Descubre hogares únicos, cabañas y escapes frente al mar con una experiencia mobile-first.
         </p>
       </div>
       <SearchInput action="/search" />

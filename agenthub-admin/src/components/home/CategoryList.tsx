@@ -13,7 +13,7 @@ export default function CategoryList({ categories }: CategoryListProps) {
         title="Browse by category"
         subtitle="Jump directly to the type of stay you are looking for"
       />
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2.5">
         {categories.map((category) => (
           <Link key={category} href={`/search?category=${encodeURIComponent(category)}`}>
             <Badge>{category}</Badge>

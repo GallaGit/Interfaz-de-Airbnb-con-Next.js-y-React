@@ -7,12 +7,25 @@ type RoomSummaryProps = {
 
 const RoomSummary = ({ title, rating, reviews, location }: RoomSummaryProps) => {
   return (
-    <section className="space-y-2 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
-      <h1 className="text-2xl font-bold text-stone-900">{title}</h1>
-      <p className="text-sm text-stone-700">
-        ★ {rating.toFixed(2)} · {reviews} reseñas · {location}
+    <header className="space-y-2">
+      <h1 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">{title}</h1>
+      <p className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm">
+        <span className="inline-flex items-center gap-0.5 font-semibold text-foreground">
+          <span className="text-brand" aria-hidden="true">
+            ★
+          </span>
+          {rating.toFixed(2)}
+        </span>
+        <span className="text-muted" aria-hidden="true">
+          ·
+        </span>
+        <span className="text-muted">{reviews} reseñas</span>
+        <span className="text-muted" aria-hidden="true">
+          ·
+        </span>
+        <span className="font-medium text-foreground">{location}</span>
       </p>
-    </section>
+    </header>
   );
 };
 

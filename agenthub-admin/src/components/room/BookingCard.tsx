@@ -6,24 +6,25 @@ type BookingCardProps = {
 
 export default function BookingCard({ pricePerNight }: BookingCardProps) {
   return (
-    <aside className="space-y-4 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
-      <p className="text-lg font-semibold text-stone-900">
-        ${pricePerNight} <span className="text-sm font-normal text-stone-600">night</span>
+    <aside className="space-y-4 rounded-2xl bg-white p-5 shadow-[var(--shadow-card)]">
+      <p className="text-foreground">
+        <span className="text-2xl font-extrabold text-brand">${pricePerNight}</span>
+        <span className="text-sm font-medium text-muted"> por noche</span>
       </p>
 
       <div className="grid grid-cols-2 gap-2 text-sm">
-        <div className="rounded-xl border border-stone-200 px-3 py-2">
-          <p className="text-xs uppercase tracking-wide text-stone-500">Check in</p>
-          <p>Any date</p>
+        <div className="rounded-xl border border-border-subtle bg-background-secondary px-3 py-3">
+          <p className="text-xs font-semibold tracking-wide text-muted uppercase">Check in</p>
+          <p className="font-medium text-foreground">Cualquier fecha</p>
         </div>
-        <div className="rounded-xl border border-stone-200 px-3 py-2">
-          <p className="text-xs uppercase tracking-wide text-stone-500">Check out</p>
-          <p>Any date</p>
+        <div className="rounded-xl border border-border-subtle bg-background-secondary px-3 py-3">
+          <p className="text-xs font-semibold tracking-wide text-muted uppercase">Check out</p>
+          <p className="font-medium text-foreground">Cualquier fecha</p>
         </div>
       </div>
 
-      <Button className="w-full">Reserve</Button>
-      <p className="text-center text-xs text-stone-500">You will not be charged yet.</p>
+      <Button className="w-full">Reservar</Button>
+      <p className="text-center text-xs text-muted">No se te cobrará todavía.</p>
     </aside>
   );
 }

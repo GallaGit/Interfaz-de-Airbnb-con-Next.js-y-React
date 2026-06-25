@@ -21,27 +21,35 @@ const RoomBookingPanel = ({ pricePerNight }: RoomBookingPanelProps) => {
   };
 
   return (
-    <aside className="space-y-4 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
-      <p className="text-lg font-semibold text-stone-900">
-        ${pricePerNight} <span className="text-sm font-normal text-stone-600">por noche</span>
+    <aside
+      className="space-y-4 rounded-2xl border border-border-subtle bg-white p-5 shadow-[var(--shadow-card)] lg:sticky lg:top-6"
+      aria-label="Tarjeta de reserva"
+    >
+      <p className="text-foreground">
+        <span className="text-2xl font-extrabold text-brand">${pricePerNight}</span>
+        <span className="text-sm font-medium text-muted"> por noche</span>
       </p>
 
-      <div className="flex items-center justify-between rounded-xl border border-stone-200 px-3 py-3">
-        <p className="text-sm text-stone-700">Huéspedes</p>
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between rounded-xl border border-border-subtle bg-background-secondary px-4 py-3.5">
+        <p className="text-sm font-medium text-foreground">Huéspedes</p>
+        <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={decreaseGuests}
-            className="h-8 w-8 rounded-full border border-stone-300 text-sm text-stone-700"
+            disabled={guests <= MIN_GUESTS}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-border-subtle bg-white text-sm font-semibold text-foreground transition hover:border-brand/40 disabled:cursor-not-allowed disabled:opacity-40"
             aria-label="Disminuir huéspedes"
           >
-            -
+            −
           </button>
-          <span className="min-w-6 text-center text-sm font-medium text-stone-900">{guests}</span>
+          <span className="min-w-6 text-center text-sm font-bold text-foreground" aria-live="polite">
+            {guests}
+          </span>
           <button
             type="button"
             onClick={increaseGuests}
-            className="h-8 w-8 rounded-full border border-stone-300 text-sm text-stone-700"
+            disabled={guests >= MAX_GUESTS}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-border-subtle bg-white text-sm font-semibold text-foreground transition hover:border-brand/40 disabled:cursor-not-allowed disabled:opacity-40"
             aria-label="Aumentar huéspedes"
           >
             +
@@ -51,7 +59,7 @@ const RoomBookingPanel = ({ pricePerNight }: RoomBookingPanelProps) => {
 
       <button
         type="button"
-        className="w-full rounded-full bg-red-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-red-600"
+        className="w-full rounded-xl bg-brand px-5 py-3.5 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-brand-hover active:scale-[0.98]"
       >
         Reservar ahora
       </button>

@@ -1,21 +1,49 @@
+const amenityIcons: Record<string, string> = {
+  Wifi: "📶",
+  "Ocean view": "🌊",
+  Kitchen: "🍳",
+  "Free parking": "🅿️",
+  Washer: "🧺",
+  Fireplace: "🔥",
+  "Hot tub": "🛁",
+  BBQ: "🍖",
+  "Self check-in": "🔑",
+  "Mountain view": "⛰️",
+  Deck: "🪵",
+  Heating: "🌡️",
+  Breakfast: "☕",
+  "Air conditioning": "❄️",
+  Workspace: "💻",
+  Elevator: "🛗",
+  Gym: "🏋️",
+  Patio: "🌿",
+  "Coffee maker": "☕",
+  Dryer: "👕",
+  Pool: "🏊",
+  Garden: "🌻",
+  Parking: "🚗",
+  "Pet friendly": "🐾",
+};
+
+function getAmenityIcon(amenity: string) {
+  return amenityIcons[amenity] ?? "✓";
+}
+
 type RoomAmenitiesSectionProps = {
   amenities: string[];
 };
 
 const RoomAmenitiesSection = ({ amenities }: RoomAmenitiesSectionProps) => {
   return (
-    <section className="space-y-3 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
-      <h2 className="text-lg font-semibold text-stone-900">Servicios</h2>
+    <section className="space-y-4 rounded-2xl border border-border-subtle bg-white p-5 shadow-[var(--shadow-card)]">
+      <h2 className="text-lg font-extrabold tracking-tight text-foreground">Servicios</h2>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {amenities.map((amenity) => (
-          <div
-            key={amenity}
-            className="flex items-center gap-2 rounded-xl bg-stone-100 px-3 py-2 text-sm text-stone-700"
-          >
-            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs text-stone-600">
-              •
+          <div key={amenity} className="flex items-center gap-3 rounded-xl bg-background-secondary px-4 py-3">
+            <span className="flex h-8 w-8 items-center justify-center text-lg" aria-hidden="true">
+              {getAmenityIcon(amenity)}
             </span>
-            <span>{amenity}</span>
+            <span className="text-sm font-medium text-foreground">{amenity}</span>
           </div>
         ))}
       </div>

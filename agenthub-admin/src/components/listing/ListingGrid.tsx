@@ -8,8 +8,8 @@ type ListingGridProps = {
 export default function ListingGrid({ listings }: ListingGridProps) {
   if (listings.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-stone-300 bg-white p-8 text-center text-stone-600">
-        No properties found for this search.
+      <div className="rounded-2xl border border-dashed border-border-subtle bg-background-secondary p-10 text-center text-muted">
+        No se encontraron propiedades para esta búsqueda.
       </div>
     );
   }

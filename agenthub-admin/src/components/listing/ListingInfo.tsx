@@ -7,12 +7,13 @@ type ListingInfoProps = {
 
 export default function ListingInfo({ listing }: ListingInfoProps) {
   return (
-    <section className="space-y-4">
+    <section className="space-y-4 rounded-2xl bg-white p-5 shadow-[var(--shadow-card)]">
       <div className="space-y-2">
-        <p className="text-sm text-stone-600">
-          Hosted by {listing.host.name} · {listing.reviews} reviews
+        <p className="text-sm text-muted">
+          Anfitrión: <span className="font-medium text-foreground">{listing.host.name}</span> ·{" "}
+          {listing.reviews} reseñas
         </p>
-        <p className="text-stone-700">{listing.description}</p>
+        <p className="leading-relaxed text-foreground">{listing.description}</p>
       </div>
 
       <div className="flex flex-wrap gap-2">
