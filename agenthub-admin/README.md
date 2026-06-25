@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Airbnb Clone — agenthub-admin
 
-## Getting Started
+Aplicación Next.js 16 con TypeScript, Tailwind CSS v4 y App Router.
 
-First, run the development server:
+> Documentación completa de interfaz, componentes y usuario: [`../context.md`](../context.md)
+
+## Requisitos técnicos
+
+- **Next.js 16** + **TypeScript** + **Tailwind CSS** (solo clases de utilidad, sin librerías de UI)
+- **App Router** en `src/app/`
+- Sin shadcn, MUI, Ant Design ni Chakra
+
+## Rutas principales (evaluación)
+
+| Ruta | Archivo |
+|---|---|
+| `/` | `src/app/page.tsx` |
+| `/catalog` | `src/app/catalog/page.tsx` |
+| `/rooms/[id]` | `src/app/rooms/[id]/page.tsx` |
+
+Ruta adicional: `/search` (búsqueda con query params).
+
+## Desarrollo
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrir [http://localhost:3000](http://localhost:3000). Diseño mobile-first optimizado para **375px**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Navegación
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Toda la navegación interna usa `<Link>` de `next/link`. Las tarjetas `StayCard` enlazan a `/rooms/[id]`. El detalle incluye `RoomBreadcrumb` con enlace de vuelta a `/catalog`.
 
-## Learn More
+## Estado de React
 
-To learn more about Next.js, take a look at the following resources:
+| Caso | Archivo |
+|---|---|
+| Filtrado por búsqueda | `src/hooks/useHomeListings.ts` |
+| Categoría activa | `src/hooks/useHomeListings.ts` |
+| Orden de resultados | `src/app/catalog/page.tsx` |
+| Contador de huéspedes | `src/components/room/RoomBookingPanel.tsx` |
+| Índice de galería | `src/components/room/RoomPhotoCarousel.tsx` |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Carga simulada (`useEffect` + `setTimeout`) | Archivo |
+|---|---|
+| Home | `src/hooks/useHomeListings.ts` |
+| Detalle | `src/hooks/useRoomDetail.ts` |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Tipos
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Definidos en `src/types/listing.ts`: `Listing`, `Room`, `Host`.

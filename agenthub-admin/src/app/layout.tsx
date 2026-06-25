@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   description: "Partial Airbnb clone with Next.js App Router",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 const RootLayout = ({
   children,
 }: Readonly<{

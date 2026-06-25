@@ -1,3 +1,9 @@
+export type Host = {
+  name: string;
+  superhost: boolean;
+};
+
+/** Alojamiento listado en Home, Catálogo y Búsqueda. */
 export type Listing = {
   id: string;
   title: string;
@@ -9,9 +15,9 @@ export type Listing = {
   image: string;
   images: string[];
   amenities: string[];
-  host: {
-    name: string;
-    superhost: boolean;
-  };
+  host: Host;
   description: string;
 };
+
+/** Habitación en detalle — misma estructura que un alojamiento del catálogo. */
+export type Room = Listing;
