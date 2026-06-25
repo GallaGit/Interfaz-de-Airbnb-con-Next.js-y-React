@@ -10,11 +10,11 @@ type CategoryFilterRowProps = {
   onCategoryChange: (value: string) => void;
 };
 
-export default function CategoryFilterRow({
+const CategoryFilterRow = ({
   filters,
   activeCategory,
   onCategoryChange,
-}: CategoryFilterRowProps) {
+}: CategoryFilterRowProps) => {
   return (
     <section
       className="-mx-4 overflow-x-auto px-4 pb-1 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
@@ -51,4 +51,6 @@ export default function CategoryFilterRow({
       </div>
     </section>
   );
-}
+};
+
+export default CategoryFilterRow;

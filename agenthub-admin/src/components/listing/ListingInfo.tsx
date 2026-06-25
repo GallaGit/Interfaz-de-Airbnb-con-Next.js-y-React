@@ -5,7 +5,7 @@ type ListingInfoProps = {
   listing: Listing;
 };
 
-export default function ListingInfo({ listing }: ListingInfoProps) {
+const ListingInfo = ({ listing }: ListingInfoProps) => {
   return (
     <section className="space-y-4 rounded-2xl bg-white p-5 shadow-[var(--shadow-card)]">
       <div className="space-y-2">
@@ -22,4 +22,6 @@ export default function ListingInfo({ listing }: ListingInfoProps) {
       </div>
     </section>
   );
-}
+};
+
+export default ListingInfo;

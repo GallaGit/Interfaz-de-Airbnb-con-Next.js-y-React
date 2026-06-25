@@ -6,7 +6,7 @@ type CategoryListProps = {
   categories: string[];
 };
 
-export default function CategoryList({ categories }: CategoryListProps) {
+const CategoryList = ({ categories }: CategoryListProps) => {
   return (
     <section className="space-y-4">
       <SectionTitle
@@ -22,4 +22,6 @@ export default function CategoryList({ categories }: CategoryListProps) {
       </div>
     </section>
   );
-}
+};
+
+export default CategoryList;

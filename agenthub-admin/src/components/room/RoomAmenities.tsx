@@ -2,7 +2,7 @@ type RoomAmenitiesProps = {
   amenities: string[];
 };
 
-export default function RoomAmenities({ amenities }: RoomAmenitiesProps) {
+const RoomAmenities = ({ amenities }: RoomAmenitiesProps) => {
   return (
     <section className="space-y-3 rounded-2xl bg-white p-5 shadow-[var(--shadow-card)]">
       <h2 className="text-xl font-extrabold tracking-tight text-foreground">Amenidades</h2>
@@ -18,4 +18,6 @@ export default function RoomAmenities({ amenities }: RoomAmenitiesProps) {
       </ul>
     </section>
   );
-}
+};
+
+export default RoomAmenities;

@@ -4,11 +4,11 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "primary" | "outline";
 };
 
-export default function Button({
+const Button = ({
   variant = "primary",
   className = "",
   ...props
-}: ButtonProps) {
+}: ButtonProps) => {
   const baseClasses =
     "inline-flex items-center justify-center rounded-xl px-5 py-2.5 text-sm font-semibold transition duration-200";
 
@@ -19,3 +19,5 @@ export default function Button({
 
   return <button className={`${baseClasses} ${variantClasses} ${className}`} {...props} />;
 };
+
+export default Button;

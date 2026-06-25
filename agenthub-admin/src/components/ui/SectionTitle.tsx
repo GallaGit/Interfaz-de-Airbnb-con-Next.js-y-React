@@ -3,7 +3,7 @@ type SectionTitleProps = {
   subtitle?: string;
 };
 
-export default function SectionTitle({ title, subtitle }: SectionTitleProps) {
+const SectionTitle = ({ title, subtitle }: SectionTitleProps) => {
   return (
     <div className="space-y-1.5">
       <h2 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
@@ -12,4 +12,6 @@ export default function SectionTitle({ title, subtitle }: SectionTitleProps) {
       {subtitle ? <p className="text-sm text-muted">{subtitle}</p> : null}
     </div>
   );
-}
+};
+
+export default SectionTitle;

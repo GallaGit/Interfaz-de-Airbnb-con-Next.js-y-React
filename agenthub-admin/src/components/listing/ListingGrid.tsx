@@ -5,7 +5,7 @@ type ListingGridProps = {
   listings: Listing[];
 };
 
-export default function ListingGrid({ listings }: ListingGridProps) {
+const ListingGrid = ({ listings }: ListingGridProps) => {
   if (listings.length === 0) {
     return (
       <div className="rounded-2xl border border-dashed border-border-subtle bg-background-secondary p-10 text-center text-muted">
@@ -21,4 +21,6 @@ export default function ListingGrid({ listings }: ListingGridProps) {
       ))}
     </div>
   );
-}
+};
+
+export default ListingGrid;

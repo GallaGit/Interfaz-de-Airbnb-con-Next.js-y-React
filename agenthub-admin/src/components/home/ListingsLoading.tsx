@@ -1,4 +1,4 @@
-export default function ListingsLoading() {
+const ListingsLoading = () => {
   return (
     <section
       className="flex flex-col items-center justify-center gap-4 rounded-2xl bg-background-secondary p-12"
@@ -13,4 +13,6 @@ export default function ListingsLoading() {
       <p className="text-sm font-medium text-muted">Cargando alojamientos...</p>
     </section>
   );
-}
+};
+
+export default ListingsLoading;

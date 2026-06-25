@@ -4,7 +4,7 @@ type BookingCardProps = {
   pricePerNight: number;
 };
 
-export default function BookingCard({ pricePerNight }: BookingCardProps) {
+const BookingCard = ({ pricePerNight }: BookingCardProps) => {
   return (
     <aside className="space-y-4 rounded-2xl bg-white p-5 shadow-[var(--shadow-card)]">
       <p className="text-foreground">
@@ -27,4 +27,6 @@ export default function BookingCard({ pricePerNight }: BookingCardProps) {
       <p className="text-center text-xs text-muted">No se te cobrará todavía.</p>
     </aside>
   );
-}
+};
+
+export default BookingCard;

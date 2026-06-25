@@ -5,7 +5,7 @@ type HomeNavbarProps = {
   onSearchChange: (value: string) => void;
 };
 
-export default function HomeNavbar({ searchText, onSearchChange }: HomeNavbarProps) {
+const HomeNavbar = ({ searchText, onSearchChange }: HomeNavbarProps) => {
   return (
     <header className="sticky top-0 z-20 -mx-4 border-b border-border-subtle bg-white/95 px-4 py-3.5 backdrop-blur-md sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
@@ -50,9 +50,9 @@ export default function HomeNavbar({ searchText, onSearchChange }: HomeNavbarPro
       </div>
     </header>
   );
-}
+};
 
-function UserAvatar() {
+const UserAvatar = () => {
   return (
     <div
       className="flex h-9 w-9 items-center justify-center rounded-full bg-background-secondary text-sm font-semibold text-foreground ring-1 ring-border-subtle"
@@ -61,4 +61,6 @@ function UserAvatar() {
       U
     </div>
   );
-}
+};
+
+export default HomeNavbar;

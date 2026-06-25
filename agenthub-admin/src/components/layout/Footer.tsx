@@ -1,4 +1,4 @@
-export default function Footer() {
+const Footer = () => {
   return (
     <footer className="hidden border-t border-border-subtle bg-background-secondary lg:block">
       <div className="mx-auto w-full max-w-6xl px-4 py-8 text-sm text-muted sm:px-6 lg:px-8">
@@ -7,4 +7,6 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

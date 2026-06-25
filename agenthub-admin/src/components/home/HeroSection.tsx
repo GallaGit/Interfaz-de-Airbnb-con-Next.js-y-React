@@ -1,6 +1,6 @@
 import SearchInput from "@/components/ui/SearchInput";
 
-export default function HeroSection() {
+const HeroSection = () => {
   return (
     <section className="space-y-6 rounded-2xl bg-background-secondary p-6 shadow-[var(--shadow-card)] sm:p-8">
       <div className="space-y-2">
@@ -15,4 +15,6 @@ export default function HeroSection() {
       <SearchInput action="/search" />
     </section>
   );
-}
+};
+
+export default HeroSection;

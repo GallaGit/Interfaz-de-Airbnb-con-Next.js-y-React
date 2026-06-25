@@ -6,7 +6,7 @@ type FeaturedListingsProps = {
   listings: Listing[];
 };
 
-export default function FeaturedListings({ listings }: FeaturedListingsProps) {
+const FeaturedListings = ({ listings }: FeaturedListingsProps) => {
   return (
     <section className="space-y-4">
       <SectionTitle
@@ -16,4 +16,6 @@ export default function FeaturedListings({ listings }: FeaturedListingsProps) {
       <ListingGrid listings={listings} />
     </section>
   );
-}
+};
+
+export default FeaturedListings;

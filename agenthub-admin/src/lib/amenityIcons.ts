@@ -1,0 +1,28 @@
+const amenityIcons: Record<string, string> = {
+  Wifi: "📶",
+  "Ocean view": "🌊",
+  Kitchen: "🍳",
+  "Free parking": "🅿️",
+  Washer: "🧺",
+  Fireplace: "🔥",
+  "Hot tub": "🛁",
+  BBQ: "🍖",
+  "Self check-in": "🔑",
+  "Mountain view": "⛰️",
+  Deck: "🪵",
+  Heating: "🌡️",
+  Breakfast: "☕",
+  "Air conditioning": "❄️",
+  Workspace: "💻",
+  Elevator: "🛗",
+  Gym: "🏋️",
+  Patio: "🌿",
+  "Coffee maker": "☕",
+  Dryer: "👕",
+  Pool: "🏊",
+  Garden: "🌻",
+  Parking: "🚗",
+  "Pet friendly": "🐾",
+};
+
+export const getAmenityIcon = (amenity: string) => amenityIcons[amenity] ?? "✓";

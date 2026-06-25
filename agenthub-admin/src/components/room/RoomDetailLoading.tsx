@@ -1,4 +1,4 @@
-export default function RoomDetailLoading() {
+const RoomDetailLoading = () => {
   return (
     <section
       className="flex flex-col items-center justify-center gap-4 rounded-2xl bg-background-secondary p-12"
@@ -13,4 +13,6 @@ export default function RoomDetailLoading() {
       <p className="text-sm font-medium text-muted">Cargando detalle de habitación...</p>
     </section>
   );
-}
+};
+
+export default RoomDetailLoading;

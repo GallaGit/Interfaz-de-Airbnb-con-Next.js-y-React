@@ -4,7 +4,7 @@ type RoomHeaderProps = {
   listing: Listing;
 };
 
-export default function RoomHeader({ listing }: RoomHeaderProps) {
+const RoomHeader = ({ listing }: RoomHeaderProps) => {
   return (
     <section className="space-y-2">
       <h1 className="text-3xl font-extrabold tracking-tight text-foreground">{listing.title}</h1>
@@ -14,4 +14,6 @@ export default function RoomHeader({ listing }: RoomHeaderProps) {
       </p>
     </section>
   );
-}
+};
+
+export default RoomHeader;

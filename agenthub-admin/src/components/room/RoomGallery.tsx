@@ -5,7 +5,7 @@ type RoomGalleryProps = {
   title: string;
 };
 
-export default function RoomGallery({ images, title }: RoomGalleryProps) {
+const RoomGallery = ({ images, title }: RoomGalleryProps) => {
   return (
     <section className="grid grid-cols-1 gap-3 sm:grid-cols-2">
       {images.map((src, index) => (
@@ -24,4 +24,6 @@ export default function RoomGallery({ images, title }: RoomGalleryProps) {
       ))}
     </section>
   );
-}
+};
+
+export default RoomGallery;

@@ -8,10 +8,10 @@ type SearchInputProps = {
   action?: "/search" | "/";
 };
 
-export default function SearchInput({
+const SearchInput = ({
   defaultValue = "",
   action = "/search",
-}: SearchInputProps) {
+}: SearchInputProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -56,4 +56,6 @@ export default function SearchInput({
       </button>
     </form>
   );
-}
+};
+
+export default SearchInput;
